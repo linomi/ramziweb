@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+{{post.title}}
+{% endblock title %}
+
+{% block css_files %}
+<link href= {% static "blog/landing.css" %}/>
+{% endblock css_files %}
+
+
+{% block content %}
+<section id= 'summary'>
+
+
+<h2>
+{{post.title}}
+</h2>
+<div> 
+    {% for tag in post.tags.all   %}
+    <span> {{tag}} </span>   
+    {% endfor %} 
+</div>
+<article>
+<img src={% static "blog/images/post1.webp" %} alt='the day of jackal pic'/>
+<address> <a href = "mailto:{{post.author.email}}" >  by {{post.author}}</a> </address>
+<div> last update on time 
+</div>
+
+</article>
+<section>
+<main>
+    <p>
+        {% lorem 1 b random %}
+    </p>
+<main>
+    <p>
+        {% lorem 1 b random %}
+    </p>
+<main>
+    <p>
+        {% lorem 1 b random %}
+    </p>
+<main>
+    <p>
+        {% lorem 1 b random %}
+    </p>
+<main>
+    <p>
+        {% lorem 1 b random %}
+    </p>
+</main>
+</section>
+</section>
+{% endblock content %}

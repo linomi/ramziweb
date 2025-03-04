@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% load static %}
+
+
+{% block tittle %}
+My Blog
+
+{% endblock tittle %}
+{% block css_files %}<link rel='stylesheet' href={%static 'blog/landing.css'%}/>{% endblock css_files %}
+
+{% block content %}
+
+<section id='Welcom'>
+<header>
+    <img src= {% static "blog/images/personal_pic.jpg" %} alt="Ramzi-image" />
+    <h2>
+        Ramzi Blog
+    </h2>
+    <p>Hi there, You are in Ramzi Blog </p>
+</header>
+</section>
+
+<section id='latest-posts'>
+<ul>
+    {% for post in posts  %}
+    {% include 'blog/includes/post.html'%}
+    {% endfor %}
+
+</ul>
+</section>
+
+<section id='about'>
+    <h2>
+        who I am? 
+    </h2>
+    <p>
+        A neat jerk at the same loves coding
+    </p>
+</section>
+{% endblock content %}
+
+
+

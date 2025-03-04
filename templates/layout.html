@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Personal Website{% endblock %}</title>
+    {% block css_files %}
+    {% endblock css_files %}
+
+</head>
+<body>
+
+    <main>
+        <header id= 'main-navigation'>
+            <h1> <a href="{% url "landing_page" %}">Ramzi blog</a></h1>
+            <nav>
+            <a href={% url "index_page" %}>All the posts </a>
+            </nav>
+            </header>
+        {% block content %}
+        <!-- Content from child templates will be inserted here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {% now "Y" %} My Personal Website. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

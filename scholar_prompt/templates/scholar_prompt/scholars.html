@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholar Results</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+    <div class="results-container">
+        <h1>Search Results</h1>
+        <div class="scholars-grid">
+            {% for author in authors %}
+            <div class="scholar-card">
+                <div class="scholar-image">
+                    <img src="{{author.url_picture}}" alt="{{author.name}}">
+                </div>
+                <div class="scholar-info">
+                    <h2>{{author.name}}</h2>
+                    <p class="affiliation">{{author.affiliation}}</p>
+                    {% if author.interests %}
+                    <div class="interests">
+                        <h3>Research Interests:</h3>
+                        <ul>
+                            {% for interest in author.interests %}
+                            <li>{{interest}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer>
+        <p>&copy; {% now "Y" %} Scholar Prompt. All rights reserved.</p>
+    </footer>
+</body>
+</html></div>

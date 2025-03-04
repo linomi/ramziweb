@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block title %}404 - Page Not Found{% endblock %}
+
+{% block content %}
+<div class="error-container" style="text-align: center; padding: 50px;">
+    <h1 style="font-size: 72px; margin-bottom: 20px;">404</h1>
+    <h2>Oops! Page Not Found</h2>
+    <p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+    <a href="{% url 'home' %}" class="btn btn-primary" style="margin-top: 20px; display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #007bff; color: white; border-radius: 5px;">
+        Return to Homepage
+    </a>
+</div>
+{% endblock %}
