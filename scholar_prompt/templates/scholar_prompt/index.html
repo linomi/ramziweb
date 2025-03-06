@@ -23,5 +23,17 @@
     <footer>
         <p>&copy; {% now "Y" %} Scholar Prompt. All rights reserved.</p>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.querySelector('input[type="file"]');
+            const fileLabel = fileInput.nextElementSibling;
+            const originalLabelText = fileLabel.innerHTML;
+
+            fileInput.addEventListener('change', function(e) {
+                const fileName = e.target.files[0]?.name;
+                fileLabel.innerHTML = fileName ? originalLabelText + ' - ' + fileName : originalLabelText;
+            });
+        });
+    </script>
 </body>
 </html>

@@ -4,5 +4,5 @@ from . import views
 app_name = 'scholar_prompt'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.scholar_view.as_view(), name='index'),
 ]
