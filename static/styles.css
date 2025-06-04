@@ -26,7 +26,7 @@ body {
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .form-control input[type="text"] {
@@ -36,6 +36,7 @@ body {
     border-radius: 5px;
     font-size: 1rem;
     transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #f8f9fa;
 }
 
 .form-control input[type="text"]:focus {
@@ -52,6 +53,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-top: 1rem;
 }
 
 .search-button:hover {
@@ -61,8 +63,13 @@ body {
 /* Results Page Styles */
 .results-container {
     max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.results-container h1 {
+    color: #333;
+    margin-bottom: 2rem;
 }
 
 .scholars-grid {
@@ -72,16 +79,32 @@ body {
     margin: 2rem 0;
 }
 
+.scholar-card-wrapper {
+    text-decoration: none;
+    height: 100%;
+}
+
+.scholar-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
 .scholar-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background: white;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .scholar-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .scholar-image {
@@ -98,6 +121,9 @@ body {
 
 .scholar-info {
     padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .scholar-info h2 {
@@ -113,7 +139,7 @@ body {
 }
 
 .interests {
-    margin-top: 1rem;
+    margin-top: auto;
 }
 
 .interests h3 {
@@ -137,11 +163,12 @@ body {
     padding: 0.3rem 0.8rem;
     border-radius: 15px;
     font-size: 0.8rem;
+    text-decoration: none;
 }
 
 /* Footer Styles */
 footer {
-    margin-top: auto;
+    margin-top: 3rem;
     background: #333;
     color: white;
     text-align: center;
@@ -163,7 +190,8 @@ footer {
 
 /* File Upload Styles */
 .form-control {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    position: relative;
 }
 
 .form-control label {
@@ -173,8 +201,8 @@ footer {
     font-weight: 500;
 }
 
-/* Custom file input styling */
-input[type="file"] {
+/* Hide the default file input */
+.form-control input[type="file"] {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
@@ -183,49 +211,67 @@ input[type="file"] {
     z-index: -1;
 }
 
-input[type="file"] + label {
+/* Style the custom file input label */
+.form-control .file-label {
     display: inline-block;
     padding: 0.8rem 1.5rem;
-    background-color: #34a853;
+    background-color: #4285f4;
     color: white;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
-    width: 100%;
-    margin-top: 1rem;
+    width: calc(100% - 3rem);
+    margin-top: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    animation: none !important;
 }
 
-input[type="file"] + label:hover {
-    background-color: #2d904d;
+.form-control .file-label:hover {
+    background-color: #3367d6;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-input[type="file"] + label:active {
+.form-control .file-label:active {
     transform: translateY(0);
 }
 
-/* File upload status indicator */
-input[type="file"] + label::after {
+/* File status indicator */
+.form-control .file-label::after {
     content: ' - No file chosen';
     font-size: 0.9rem;
     font-weight: normal;
 }
 
-input[type="file"]:valid + label::after {
+.form-control input[type="file"]:valid + .file-label::after {
     content: ' - File selected ✓';
     color: #e8f5e9;
 }
 
-/* Error state for file input */
-.errors input[type="file"] + label {
+/* Error states */
+.form-control.errors input[type="file"] + .file-label {
     background-color: #dc3545;
-    border-color: #dc3545;
 }
 
-.errors input[type="file"] + label:hover {
+.form-control.errors input[type="file"] + .file-label:hover {
     background-color: #c82333;
+}
+
+/* Error messages */
+.form-control .errorlist {
+    list-style: none;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    background-color: #fff3f3;
+    border-left: 4px solid #dc3545;
+    border-radius: 0 4px 4px 0;
+}
+
+.form-control .errorlist li {
+    color: #dc3545;
+    font-size: 0.9rem;
 }
 
 /* Error messages styling */
@@ -240,4 +286,87 @@ input[type="file"]:valid + label::after {
 .form-control ul.errorlist li {
     color: #dc3545;
     font-size: 0.9rem;
+}
+
+/* Animation for file label */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 64, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 64, 129, 0);
+    }
+}
+
+/* Change CV Form Styles */
+.change-cv-form {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.change-cv-button {
+    align-self: flex-start;
+    padding: 0.8rem 1.5rem;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    margin-top: 1rem;
+}
+
+.change-cv-button:hover {
+    background-color: #3367d6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Container */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Update Section Styles */
+.update-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 3rem;
+}
+
+.update-section h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .page-container {
+        padding: 1rem;
+    }
+    
+    .update-section {
+        padding: 1.5rem;
+    }
+    
+    .scholars-grid {
+        grid-template-columns: 1fr;
+    }
 }

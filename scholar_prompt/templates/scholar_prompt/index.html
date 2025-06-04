@@ -10,30 +10,42 @@
 <body>
     <div class="search-container">
         <h1>Google Scholar Search</h1>
-        <form method="post" class="search-form">
-            <div class="form-control {% if form.scholar_query.errors %}errors{% endif %}">
-                {% csrf_token %}
-                <div class="input-group">
-                    {{ form }}
-                    <button type="submit" class="search-button">Search</button>
+        <form method="post" class="search-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-group">
+                <div class="form-control {% if form.scholar_query.errors %}errors{% endif %}">
+                    <label for="{{ form.scholar_query.id_for_label }}">{{ form.scholar_query.label }}</label>
+                    {{ form.scholar_query }}
+                    {{ form.scholar_query.errors }}
                 </div>
+                {% if cv == False  %}
+                <div class="form-control {% if form.CV.errors %}errors{% endif %}">
+                    <label for="{{ form.CV.id_for_label }}">Upload CV (PDF)</label>
+                    {{ form.CV }}
+                    <label for="{{ form.CV.id_for_label }}" class="file-label">Drop your CV here or click to select</label>
+                    {{ form.CV.errors }}
+                </div>
+                {% endif %}
+                
+                <button type="submit" class="search-button">Search</button>
             </div>
         </form>
+{% if cv != False %}
+    <form action="{% url 'scholar_prompt:change_cv' %}" method="post" class="change-cv-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-control">
+            <label for="change_cv">Update CV</label>
+            <input type="file" name="CV" id="change_cv" accept="application/pdf">
+            <label for="change_cv" class="file-label">Drop new CV here or click to select</label>
+        </div>
+        <button type="submit" class="change-cv-button">Update CV</button>
+    </form>
+{% endif %}
+
     </div>
     <footer>
         <p>&copy; {% now "Y" %} Scholar Prompt. All rights reserved.</p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const fileInput = document.querySelector('input[type="file"]');
-            const fileLabel = fileInput.nextElementSibling;
-            const originalLabelText = fileLabel.innerHTML;
-
-            fileInput.addEventListener('change', function(e) {
-                const fileName = e.target.files[0]?.name;
-                fileLabel.innerHTML = fileName ? originalLabelText + ' - ' + fileName : originalLabelText;
-            });
-        });
-    </script>
+    <script src="{% static 'scripts.js' %}"></script>
 </body>
 </html>

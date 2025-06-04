@@ -9,34 +9,63 @@
 </head>
 
 <body>
-    <div class="results-container">
-        <h1>Search Results</h1>
-        <div class="scholars-grid">
-            {% for author in authors %}
-            <div class="scholar-card">
-                <div class="scholar-image">
-                    <img src="{{author.url_picture}}" alt="{{author.name}}">
-                </div>
-                <div class="scholar-info">
-                    <h2>{{author.name}}</h2>
-                    <p class="affiliation">{{author.affiliation}}</p>
-                    {% if author.interests %}
-                    <div class="interests">
-                        <h3>Research Interests:</h3>
-                        <ul>
-                            {% for interest in author.interests %}
-                            <li>{{interest}}</li>
-                            {% endfor %}
-                        </ul>
+    <div class="page-container">
+        {% if cv != False %}
+        <div class="update-section">
+            <h2>Update Your CV</h2>
+            <form action="{% url 'scholar_prompt:change_cv' %}" method="post" class="change-cv-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="form-control {% if form.scholar_query.errors %}errors{% endif %}">
+                        <label for="{{ form.scholar_query.id_for_label }}">{{ form.scholar_query.label }}</label>
+                        <input type="text" name="{{ form.scholar_query.html_name }}" value="{{ query }}" id="{{ form.scholar_query.id_for_label }}">
+                        {{ form.scholar_query.errors }}
                     </div>
-                    {% endif %}
+
+                    <div class="form-control">
+                        <label for="change_cv">Update CV</label>
+                        <input type="file" name="CV" id="change_cv" accept="application/pdf">
+                        <label for="change_cv" class="file-label">Drop new CV here or click to select</label>
+                    </div>
+                    <button type="submit" class="change-cv-button">Update CV</button>
                 </div>
+            </form>
+        </div>
+        {% endif %}
+
+        <div class="results-container">
+            <h1>Search Results</h1>
+            <div class="scholars-grid">
+                {% for author in authors %}
+                <div class="scholar-card-wrapper">
+                    <a href="{% url 'scholar_prompt:author' author.scholar_id %}" class="scholar-link">
+                        <div class="scholar-card">
+                            <div class="scholar-image">
+                                <img src="{{author.url_picture}}" alt="{{author.name}}">
+                            </div>
+                            <div class="scholar-info">
+                                <h2>{{author.name}}</h2>
+                                <p class="affiliation">{{author.affiliation}}</p>
+                                {% if author.interests %}
+                                <div class="interests">
+                                    <h3>Research Interests:</h3>
+                                    <ul>
+                                        {% for interest in author.interests %}
+                                        <li>{{interest}}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
     <footer>
         <p>&copy; {% now "Y" %} Scholar Prompt. All rights reserved.</p>
     </footer>
 </body>
-</html></div>
+</html>
