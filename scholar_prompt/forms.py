@@ -3,7 +3,7 @@ from django.forms.widgets import ClearableFileInput
 from django.core.validators import FileExtensionValidator
 
 class PromptForm(forms.Form):
-    scholar_query = forms.CharField(
+    scholar_query = forms.CharField(required=True,
         label="Search on Google scholar",
         max_length=100,
         error_messages={'required': "This field can't be empty", 'max_length': "Your query is too long "})
