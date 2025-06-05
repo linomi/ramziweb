@@ -1,5 +1,11 @@
 from logging import raiseExceptions
-from scholarly import scholarly
+from scholarly import scholarly,ProxyGenerator
+
+pg = ProxyGenerator()
+success = pg.FreeProxies()
+
+scholarly.use_proxy(pg)
+
 class Gscholar(): 
     def __init__(self,author_query:str):
         self.authors = scholarly.search_author(author_query)
